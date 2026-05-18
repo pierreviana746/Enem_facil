@@ -20,31 +20,8 @@ app.use("/questoes", require("./routes/questoes"));
 app.use(express.static(path.join(__dirname, "public")));
 
 // AQUI É O FINAL (OBRIGATÓRIO)
-const port = process.env.PORT || 3000;
+const PORT = process.env.PORT || 10000;
 
-// Rota teste
-app.get("/", (req, res) => {
-  res.send("API funcionando 🚀");
-});
-
-const Questao = require("./models/Questao");
-
-app.post("/questoes", async (req, res) => {
-  try {
-    const novaQuestao = req.body;
-
-    await Questao.create(novaQuestao);
-
-    res.json({
-      mensagem: "Questão adicionada com sucesso",
-      questao: novaQuestao
-    });
-  } catch (err) {
-    res.status(500).json({ erro: err.message });
-  }
-});
-
-// Iniciar servidor
-app.listen(port, () => {
-  console.log(`Servidor rodando em http://localhost:${port}`);
+app.listen(PORT, () => {
+  console.log(`Servidor rodando na porta ${PORT}`);
 });
