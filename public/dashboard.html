@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Meu Painel - ENEM+</title>
+
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+    }
+  .question-box img {
+  max-width: 100%;
+  border-radius: 10px;
+  margin: 10px 0;
+ }
+    canvas {
+  max-width: 100%;
+  margin-bottom: 30px;
+ }
+ .graficos-container {
+  display: flex;
+  gap: 20px;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.grafico {
+  flex: 1;
+  min-width: 300px;
+  background: #fff;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+     
+    header {
+      background-color: #3B6EA5;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    main {
+      max-width: 800px;
+      margin: 30px auto;
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+    }
+
+    .card {
+      background: #f9f9f9;
+      padding: 15px;
+      margin-bottom: 10px;
+      border-left: 5px solid #3B6EA5;
+    }
+
+    .btn {
+      background: #3B6EA5;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background: #2A4D69;
+    }
+  .question-box {
+  margin-top: 30px;
+  padding: 20px;
+  background: #eef4fc;
+  border-radius: 10px;
+  border: 5px solid transparent;
+ }
+    .nivel {
+      font-weight: bold;
+      color: white;
+      padding: 5px 10px;
+      border-radius: 5px;
+      display: inline-block;
+    }
+
+    .nivel-1 { background: green; }
+    .nivel-2 { background: goldenrod; }
+    .nivel-3 { background: red; }
+
+    .alternativas {
+   display: flex;
+   flex-wrap: wrap;
+   gap: 10px;
+}
+
+  .alternativas label {
+   width: 100%;
+   margin: 8px 0;
+}
+
+.alternativas label.alt-imagem {
+  width: calc(50% - 10px);
+}
+ 
+ /* Cores por nível */
+ .box-nivel-1 { border-color: green; }
+ .box-nivel-2 { border-color: goldenrod; }
+ .box-nivel-3 { border-color: red; }  
+
+    .feedback {
+      margin-top: 10px;
+      font-weight: bold;
+    }
+
+    .correta { color: green; }
+    .errada { color: red; }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>Bem-vindo, <span id="nomeAluno"></span></h1>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</header>
+
+<main>
+
+  <h2>Progresso</h2>
+
+  <div class="card">Respondidas: <span id="respondidas">0</span></div>
+  <div class="card">Acertos: <span id="acertos">0</span></div>
+  <div class="card">Erros: <span id="erros">0</span></div>
+ <h2>Filtros</h2>
+ <h2>Desempenho</h2>
+
+<div class="graficos-container">
+
+  <div class="grafico">
+    <h3>Por Disciplina</h3>
+    <canvas id="graficoDisciplina"></canvas>
+  </div>
+
+  <div class="grafico">
+    <h3>Por Nível</h3>
+    <canvas id="graficoNivel"></canvas>
+  </div>
+
+</div>
+<div style="margin-bottom: 20px;">
+
+  <select id="filtroDisciplina">
+    <option value="">Todas as disciplinas</option>
+    <option value="Matemática">Matemática</option>
+    <option value="Português">Português</option>
+    <option value="História">História</option>
+    <option value="Geografia">Geografia</option>
+    <option value="Física">Física</option>
+    <option value="Química">Química</option>
+    <option value="Biologia">Biologia</option>
+  </select>
+
+  <select id="filtroNivel">
+    <option value="">Todos os níveis</option>
+    <option value="1">Fácil</option>
+    <option value="2">Médio</option>
+    <option value="3">Difícil</option>
+  </select>
+ 
+  <select id="filtroStatus">
+    <option value="">Todas as questões</option>
+    <option value="respondidas">Somente respondidas</option>
+    <option value="naoRespondidas">Ainda não respondidas</option>
+  </select>
+
+  <button class="btn" onclick="aplicarFiltros()">Filtrar</button>
+
+</div>
+  <div class="question-box">
+
+    <h2>Questão</h2>
+
+    <div id="nivelDificuldade" class="nivel"></div>
+
+    <p id="enunciado">Carregando...</p>
+
+    <div class="alternativas">
+      <label></label>
+      <label></label>
+      <label></label>
+      <label></label>
+      <label></label>
+    </div>
+
+    <button class="btn" onclick="enviarResposta()">Responder</button>
+
+    <p id="feedback" class="feedback"></p>
+
+    <br>
+
+    <button class="btn" onclick="voltarQuestao()">Anterior</button>
+    <button class="btn" onclick="proximaQuestao()">Próxima</button>
+
+  </div>
+
+  <br>
+
+  <button class="btn" onclick="zerarProgresso()">Zerar Progresso</button>
+  <button class="btn" onclick="logout()">Sair</button>
+
+</main>
+
+<script>
+let questoes = [];
+let questoesOriginais = [];
+let questoesFiltradas = [];
+let indiceQuestao = 0;
+let chartDisciplina;
+let chartNivel;
+
+  const token = localStorage.getItem("token");
+  if (!token) {
+    window.location.href = "index.html";
+  }
+
+  // validação do token (opção 2 - mais segura)
+  try {
+    const payload = JSON.parse(atob(token.split(".")[1]));
+    const agora = Date.now() / 1000;
+
+    if (payload.exp < agora) {
+      localStorage.clear();
+      window.location.href = "index.html";
+    }
+  } catch (e) {
+    localStorage.clear();
+    window.location.href = "index.html";
+}
+
+// 🔐 LOGIN
+const alunoLogado = JSON.parse(localStorage.getItem("alunoLogado"));
+const aluno = JSON.parse(localStorage.getItem("alunoLogado"))?.nome;
+
+if (!alunoLogado) {
+  window.location.href = "index.html";
+}
+
+// 📊 PROGRESSO
+const progresso = JSON.parse(localStorage.getItem(`progresso_${aluno}`)) || {
+  respondidas: 0,
+  acertos: 0,
+  erros: 0
+};
+
+document.getElementById("nomeAluno").textContent = aluno;
+
+// 🔌 API
+async function carregarQuestoesAPI() {
+  try {
+    const API = "http://localhost:3000";
+   
+
+    const res = await fetch(`${API}/questoes`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+   }
+});
+   console.log("STATUS:", res.status);
+   const data = await res.json();
+   console.log("DATA:", data);
+   
+  questoes = data.map(q => ({
+  ...q,
+  respondida: false,
+  acertou: false
+}));
+
+    // 🔥 sincroniza com localStorage (mantendo progresso)
+    const salvas = JSON.parse(localStorage.getItem(`questoes_${aluno}`)) || [];
+
+   questoes = questoes.map(q => {
+  const antiga = salvas.find(s => s.id === q.id);
+
+  if (antiga) {
+    return {
+      ...q,
+      respondida: antiga.respondida,
+      acertou: antiga.acertou
+    };
+  }
+
+  return q;
+});
+    questoesOriginais = [...questoes];
+    questoesFiltradas = [...questoes];
+
+    atualizarProgresso();
+    carregarQuestao();
+    gerarGraficoDisciplina();
+    gerarGraficoNivel();
+
+  } catch (err) {
+    console.error(err);
+    document.getElementById("enunciado").textContent = "Erro ao carregar questões.";
+  }
+}
+
+// 📊 ATUALIZAR PROGRESSO
+function atualizarProgresso() {
+  document.getElementById("respondidas").textContent = progresso.respondidas;
+  document.getElementById("acertos").textContent = progresso.acertos;
+  document.getElementById("erros").textContent = progresso.erros;
+}
+
+// 📌 QUESTÃO
+function carregarQuestao() {
+  if (!questoesFiltradas.length) {
+    document.getElementById("enunciado").textContent = "Nenhuma questão encontrada.";
+    return;
+  }
+
+  const q = questoesFiltradas[indiceQuestao];
+  console.log(q);
+  const box = document.querySelector(".question-box");
+
+  box.classList.remove("box-nivel-1", "box-nivel-2", "box-nivel-3");
+  box.classList.add("box-nivel-" + q.nivel);
+
+  // 📝 NOVO BLOCO DE TEXTO + IMAGEM + ENUNCIADO
+  const enunciadoEl = document.getElementById("enunciado");
+  const baseURL = "http://localhost:3000";
+  let html = "";
+
+  if (q.textoIntro) {
+    html += `<p>${q.textoIntro}</p>`;
+  }
+
+  if (q.imagem) {
+    const imagemURL = q.imagem.startsWith("http") ? q.imagem : baseURL + q.imagem;
+    html += `<img src="${imagemURL}" alt="Imagem da questão">`;
+  }
+
+  if (q.enunciado) {
+    html += `<p>${q.enunciado}</p>`;
+  }
+
+  enunciadoEl.innerHTML = html;
+
+  // 🔹 Nível da questão
+  const nomes = { 1: "Fácil", 2: "Médio", 3: "Difícil" };
+  const nivelEl = document.getElementById("nivelDificuldade");
+
+  nivelEl.textContent = "Nível " + nomes[q.nivel];
+  nivelEl.className = "nivel nivel-" + q.nivel;
+
+  // 🔹 Alternativas
+  const labels = document.querySelectorAll(".alternativas label");
+  const keys = ["A", "B", "C", "D", "E"];
+
+keys.forEach((k, i) => {
+  let alt = q.alternativas[k];
+
+  let conteudo = "";
+
+  // ✅ se for formato antigo (string)
+  if (typeof alt === "string") {
+    conteudo = alt;
+  }
+
+  // ✅ se for objeto (novo formato)
+  else if (typeof alt === "object" && alt !== null) {
+
+    if (alt.texto) {
+      conteudo += `<span>${alt.texto}</span>`;
+    }
+
+    if (alt.imagem) {
+      const imagemURL = alt.imagem.startsWith("http")
+        ? alt.imagem
+        : baseURL + alt.imagem;
+
+      conteudo += `<br><img src="${imagemURL}" style="max-width:150px;">`;
+    }
+  }
+
+  // ⚠️ segurança
+  else {
+    conteudo = "Alternativa inválida";
+  }
+
+  let temImagem = typeof alt === "object" && alt !== null && alt.imagem;
+  let classeAlt = temImagem ? "alt-imagem" : "";
+
+  labels[i].innerHTML = `
+   <div class="${classeAlt}">
+     <input type="radio" name="resposta" value="${k}">
+     ${k}) ${conteudo}
+   </div>
+ `;
+});
+
+  document.getElementById("feedback").textContent = "";
+}
+
+// 📩 RESPOSTA
+function enviarResposta() {
+  const selecionada = document.querySelector('input[name="resposta"]:checked');
+  const feedback = document.getElementById("feedback");
+
+  if (!selecionada) {
+    alert("Selecione uma alternativa!");
+    return;
+  }
+
+  const q = questoesFiltradas[indiceQuestao];
+
+  if (q.respondida) {
+    feedback.textContent = "Já respondida!";
+    return;
+  }
+
+  q.respondida = true;
+  progresso.respondidas++; 
+
+  if (selecionada.value === q.correta) {
+    progresso.acertos++;
+    q.acertou = true;
+    feedback.textContent = "✔ Correto!";
+    feedback.className = "feedback correta";
+  } else {
+    progresso.erros++;
+    q.acertou = false;
+    feedback.textContent = `✖ Errado! Correta: ${q.correta}`;
+    feedback.className = "feedback errada";
+  }
+
+  localStorage.setItem(`progresso_${aluno}`, JSON.stringify(progresso));
+  localStorage.setItem(`questoes_${aluno}`, JSON.stringify(questoes));
+
+  atualizarProgresso();
+  gerarGraficoDisciplina();
+  gerarGraficoNivel();
+}
+
+// ➡️ NAVEGAÇÃO
+function proximaQuestao() {
+  if (indiceQuestao < questoesFiltradas.length - 1) {
+    indiceQuestao++;
+    carregarQuestao();
+  }
+}
+
+function voltarQuestao() {
+  if (indiceQuestao > 0) {
+    indiceQuestao--;
+    carregarQuestao();
+  }
+}
+
+// 🔄 ZERAR
+function zerarProgresso() {
+  if (confirm("Zerar progresso?")) {
+    progresso.respondidas = 0;
+    progresso.acertos = 0;
+    progresso.erros = 0;
+
+    questoes.forEach(q => {
+      q.respondida = false;
+      q.acertou = false;
+    });
+
+    localStorage.setItem(`progresso_${aluno}`, JSON.stringify(progresso));
+    localStorage.setItem(`questoes_${aluno}`, JSON.stringify(questoes));
+
+    atualizarProgresso();
+    carregarQuestao();
+    gerarGraficoDisciplina();
+    gerarGraficoNivel();
+  }
+}
+
+// 🚪 SAIR
+function logout() {
+  localStorage.removeItem("alunoLogado");
+  window.location.href = "index.html";
+}
+
+// 📊 GRÁFICOS
+function calcularPercentual(v, t) {
+  return t === 0 ? 0 : Number(((v / t) * 100).toFixed(1));
+}
+
+function gerarGraficoDisciplina() {
+  if (chartDisciplina) chartDisciplina.destroy();
+
+  const dados = {};
+
+  questoes.forEach(q => {
+    if (!dados[q.disciplina]) dados[q.disciplina] = { a: 0, t: 0 };
+    dados[q.disciplina].t++;
+    if (q.acertou) dados[q.disciplina].a++;
+  });
+
+  const labels = Object.keys(dados);
+  const valores = labels.map(d => calcularPercentual(dados[d].a, dados[d].t));
+
+  chartDisciplina = new Chart(document.getElementById("graficoDisciplina"), {
+    type: "bar",
+    data: {
+      labels,
+      datasets: [{ label: "% Acertos", data: valores }]
+    }
+  });
+}
+
+function gerarGraficoNivel() {
+  if (chartNivel) chartNivel.destroy();
+
+  const n = {
+    1: { a: 0, t: 0 },
+    2: { a: 0, t: 0 },
+    3: { a: 0, t: 0 }
+  };
+
+  questoes.forEach(q => {
+    n[q.nivel].t++;
+    if (q.acertou) n[q.nivel].a++;
+  });
+
+  const valores = [1,2,3].map(i => calcularPercentual(n[i].a, n[i].t));
+
+  chartNivel = new Chart(document.getElementById("graficoNivel"), {
+    type: "doughnut",
+    data: {
+      labels: ["Fácil", "Médio", "Difícil"],
+      datasets: [{
+      data: valores,
+      backgroundColor: [
+      "#2ecc71", // verde (fácil)
+      "#f1c40f", // amarelo (médio)
+      "#e74c3c"  // vermelho (difícil)
+  ],
+  borderWidth: 2
+}]
+    }
+  });
+}
+
+// 🎯 FILTRO
+function aplicarFiltros() {
+  const d = document.getElementById("filtroDisciplina").value;
+  const n = document.getElementById("filtroNivel").value;
+  const s = document.getElementById("filtroStatus").value;
+
+  let f = [...questoesOriginais];
+
+  if (d) f = f.filter(q => q.disciplina === d);
+  if (n) f = f.filter(q => q.nivel === Number(n));
+  if (s === "respondidas") f = f.filter(q => q.respondida);
+  if (s === "naoRespondidas") f = f.filter(q => !q.respondida);
+
+  if (!f.length) return alert("Nenhuma questão encontrada.");
+
+  questoesFiltradas = f;
+  indiceQuestao = 0;
+
+  carregarQuestao();
+}
+
+// 🚀 INICIAR
+carregarQuestoesAPI();
+</script>
+</body>
+</html>

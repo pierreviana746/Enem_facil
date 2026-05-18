@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Provas ENEM </title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f8f8f8;
+      margin: 0;
+      padding: 20px;
+    }
+
+    header {
+      background-color: #3B6EA5;
+      color: #fff;
+      text-align: center;
+      padding: 30px 20px;
+      border-radius: 0 0 10px 10px;
+    }
+
+    .link-inep {
+      display: block;
+      text-align: center;
+      margin: 25px auto;
+      color: #2A4D69;
+      font-weight: bold;
+      text-decoration: none;
+      font-size: 1em;
+    }
+
+    .link-inep:hover {
+      text-decoration: underline;
+    }
+
+    .ano-btn {
+      background-color: #3B6EA5;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      margin: 8px 0;
+      display: block;
+      width: 250px;
+      text-align: left;
+      border-radius: 6px;
+      font-size: 1em;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .ano-btn:hover {
+      background-color: #2A4D69;
+    }
+
+    .conteudo-ano {
+      display: none;
+      background-color: white;
+      margin: 10px 0 20px;
+      padding: 15px 25px;
+      border-radius: 8px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+      max-width: 800px;
+    }
+
+    .conteudo-ano ul {
+      padding-left: 20px;
+    }
+
+    .conteudo-ano li {
+      margin-bottom: 10px;
+    }
+
+    .conteudo-ano a {
+      color: #3B6EA5;
+      text-decoration: none;
+    }
+
+    .conteudo-ano a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Provas Anteriores do ENEM</h1>
+    <p>Clique em um ano para visualizar os arquivos disponíveis</p>
+  </header>
+
+  <!-- Link do INEP no topo -->
+  <a href="https://www.gov.br/inep/pt-br/areas-de-atuacao/avaliacao-e-exames-educacionais/enem/provas-e-gabaritos"
+     class="link-inep" target="_blank">
+     Acesse o site oficial do INEP para mais provas
+  </a>
+
+  <!-- Botões e conteúdos para ENEM 2025 até 2012 -->
+  <script>
+  const anos = Array.from({ length: 2025 - 2012 + 1 }, (_, i) => 2025 - i);
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const body = document.body;
+
+    const mainContent = document.createElement('div');
+
+    anos.forEach(ano => {
+      // Botão
+      const btn = document.createElement('button');
+      btn.className = 'ano-btn';
+      btn.textContent = `📘 ENEM ${ano}`;
+      btn.onclick = () => {
+        const div = document.getElementById(`ano${ano}`);
+        div.style.display = div.style.display === 'block' ? 'none' : 'block';
+      };
+
+      // Conteúdo oculto com links
+      const content = document.createElement('div');
+      content.className = 'conteudo-ano';
+      content.id = `ano${ano}`;
+      content.innerHTML = `
+        <ul>
+          <li><a href="provas/enem_${ano}_dia1.pdf" target="_blank">1º Dia - Linguagens, Humanas e Redação</a></li>
+          <li><a href="provas/enem_${ano}_dia2.pdf" target="_blank">2º Dia - Matemática e Ciências da Natureza</a></li>
+          <li><a href="provas/gabarito_${ano}_dia1.pdf" target="_blank">Gabarito - 1º Dia</a></li>
+          <li><a href="provas/gabarito_${ano}_dia2.pdf" target="_blank">Gabarito - 2º Dia</a></li>
+        </ul>
+      `;
+
+      mainContent.appendChild(btn);
+      mainContent.appendChild(content);
+    });
+
+    body.appendChild(mainContent);
+  });
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>ENEM FÁCIL</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+        }
+       
+        header {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            background-color: SkyBlue;
+            padding: 20px 40px;
+            box-shadow:   0px 2px 4px rgba(0,0,0,0.1);
+            flex-wrap: wrap;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 5px 18px;
+            background-color: #3B6EA5;
+            color: white;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 0.9em;
+        }
+
+        .btn:hover {
+            background-color: green;
+        }
+
+        .login-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            width: 240px;
+        }
+
+        .login-container h2 {
+            font-size: 1.2em;
+        }
+
+        input {
+            display: block;
+            margin: 10px auto;
+            padding: 8px;
+            width: 90%;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 0.9em;
+        }
+
+        .login-error {
+            color: red;
+            margin-top: 10px;
+            font-size: 0.85em;
+        }
+
+        main {
+            padding: 0px 40px;
+            text-align: center;
+        }
+
+        .login-area {
+            position: absolute;
+            top: 20px;
+            right: 40px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div>
+            <h1 style="margin: 20; font-size: 2.5em;">ENEM FÁCIL</h1>
+            <p style="font-size: 1.1em;">Bem-vindo! Acesse os conteúdos da plataforma.</p>
+        </div>
+        
+    </header>
+     <main>
+        
+       <div class="nav-buttons">
+            <a href="materiais.html" class="btn">Materiais</a>
+            <a href="provas.html" class="btn">Provas</a>
+            <a href="admin.html" class="btn">Área do Administrador</a>
+        </div>
+    </main>
+    <div class="login-area">
+        <div class="login-container">
+            <h2>Login do Aluno</h2>
+            <input type="text" id="alunoUser" placeholder="Usuário">
+            <input type="password" id="alunoPass" placeholder="Senha">
+            <button class="btn" onclick="loginAluno()">Entrar</button>
+            <p class="login-error" id="erroLogin"></p>
+            <p style="font-size: 0.9em;">Ainda não tem uma conta?</p>
+            <a href="cadastro.html" class="btn" style="font-size: 0.8em; padding: 6px 12px;">Cadastrar-se</a>
+        </div>
+    </div>
+   <section style="max-width: 800px; margin: 40px auto; padding: 20px; background: #ffffff; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.05); font-family: Arial, sans-serif; line-height: 1.6;">
+  <article>
+    <h2 style="color: #3B6EA5;"> Contexto Histórico do Surgimento do ENEM</h2>
+    <p>
+      O Exame Nacional do Ensino Médio (ENEM) foi criado em 1998 pelo Ministério da Educação (MEC), inicialmente como uma ferramenta de avaliação da qualidade do ensino médio brasileiro. Seu objetivo era diagnóstico, voltado para análise do desempenho dos estudantes. Com o tempo, o ENEM se transformou em um dos principais meios de acesso ao ensino superior, especialmente após 2009, quando passou a ser utilizado em programas como o SISU, ProUni, FIES e até por universidades internacionais. Hoje, é o maior exame educacional do país.
+    </p>
+  </article>
+
+  <article>
+    <h2 style="color: #3B6EA5;"> O que é o ENEM?</h2>
+    <p>
+      O ENEM é uma prova aplicada anualmente com o objetivo de avaliar os conhecimentos adquiridos pelos estudantes ao final do ensino médio. Composta por questões de múltipla escolha e uma redação, a prova cobre áreas como Linguagens, Matemática, Ciências Humanas e Ciências da Natureza. Sua nota pode ser usada para entrar em universidades públicas, privadas ou participar de programas de incentivo ao ensino superior.
+    </p>
+  </article>
+
+  <article>
+    <h2 style="color: #3B6EA5;"> Por que devo fazer o ENEM?</h2>
+    <p>
+      Fazer o ENEM abre portas para diversas oportunidades acadêmicas e profissionais. Através dele, é possível concorrer a vagas em universidades públicas pelo SISU, obter bolsas pelo ProUni e solicitar financiamento estudantil pelo FIES. Muitas instituições privadas também aceitam a nota do ENEM como forma de ingresso, evitando vestibulares específicos. Além disso, o exame serve como uma autoavaliação importante para o estudante entender seu nível de preparo. Universidades internacionais, como algumas em Portugal, também aceitam a nota do ENEM, oferecendo acesso à educação superior fora do Brasil. Em resumo, o ENEM é uma ferramenta essencial para quem quer ampliar suas possibilidades de futuro.
+    </p>
+  </article>
+</section>
+    <script>
+        // Função de login do aluno
+        async function loginAluno() {
+  const usuario = document.getElementById("alunoUser").value.trim();
+  const senha = document.getElementById("alunoPass").value.trim();
+  const erro = document.getElementById("erroLogin");
+
+  try {
+    const res = await fetch("http://localhost:3000/auth/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ usuario, senha })
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      erro.textContent = data.error || "Usuário ou senha inválidos.";
+      return;
+    }
+
+    localStorage.setItem("token", data.token);
+    localStorage.setItem("alunoLogado", JSON.stringify(data.aluno));
+
+    window.location.href = "dashboard.html";
+
+  } catch (err) {
+    erro.textContent = "Erro ao conectar com servidor.";
+  }
+}
+
+        // Permitir login com tecla Enter
+        document.addEventListener("DOMContentLoaded", () => {
+            const inputs = [document.getElementById("alunoUser"), document.getElementById("alunoPass")];
+
+            inputs.forEach(input => {
+                input.addEventListener("keydown", function(event) {
+                    if (event.key === "Enter") {
+                        loginAluno();
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

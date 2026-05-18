@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <title>Painel do Administrador</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      padding: 40px;
+      text-align: center;
+    }
+
+    #loginForm, #painelAdmin {
+      max-width: 400px;
+      margin: 0 auto;
+      padding: 20px;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    input, button {
+      padding: 10px;
+      width: 90%;
+      margin-top: 10px;
+      font-size: 1em;
+      border-radius: 5px;
+    }
+
+    button {
+      background-color: #3B6EA5;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin-top: 20px;
+      text-align: left;
+    }
+
+    li {
+      background: #eee;
+      padding: 8px 12px;
+      margin-bottom: 6px;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <h3 style="margin-top: 30px;">Questões Salvas</h3>
+   <ul id="listaQuestoes"></ul>
+
+  <div id="loginForm">
+    <h2>Login do Administrador</h2>
+    <input type="text" id="adminUser" placeholder="Usuário" />
+    <input type="password" id="adminPass" placeholder="Senha" />
+    <button onclick="loginAdmin()">Entrar</button>
+    <p id="mensagem" style="color: red; margin-top: 10px;"></p>
+  </div>
+
+  <div id="painelAdmin" style="display: none;">
+    <h2>Alunos Cadastrados</h2>
+    <ul id="listaAlunos"></ul>
+    <button onclick="logoutAdmin()" style="margin-top: 20px;">Sair</button>
+    <br><br>
+    <button onclick="voltarParaIndex()">Voltar para o Início</button>
+<hr style="margin: 30px 0;">
+<h3>Adicionar Nova Questão</h3>
+<textarea id="novaQuestao" rows="5" style="width: 100%; border-radius: 5px; padding: 10px; border: 1px solid #ccc;" placeholder="Digite a nova questão aqui..."></textarea>
+<br>
+<button onclick="adicionarQuestao()" style="margin-top: 10px; background-color: #28a745;">Adicionar Questão</button>
+<p id="mensagemQuestao" style="color: green; margin-top: 10px;"></p>
+  
+ </div>
+
+<script>
+  const adminLogin = {
+    usuario: "admin",
+    senha: "12345"
+  };
+
+  function loginAdmin() {
+    const user = document.getElementById('adminUser').value.trim();
+    const pass = document.getElementById('adminPass').value.trim();
+    const msg = document.getElementById('mensagem');
+
+    if (user === adminLogin.usuario && pass === adminLogin.senha) {
+      document.getElementById('loginForm').style.display = 'none';
+      document.getElementById('painelAdmin').style.display = 'block';
+      mostrarAlunos();
+    } else {
+      msg.textContent = "Usuário ou senha inválidos.";
+    }
+  }
+ 
+  function mostrarAlunos() {
+    const lista = document.getElementById('listaAlunos');
+    const alunos = JSON.parse(localStorage.getItem("alunos")) || [];
+
+    if (alunos.length === 0) {
+      lista.innerHTML = "<li>Nenhum aluno cadastrado.</li>";
+    } else {
+      lista.innerHTML = "";
+      alunos.forEach((aluno, index) => {
+        const li = document.createElement("li");
+        li.textContent = `${index + 1}. ${aluno}`;
+        lista.appendChild(li);
+      });
+    }
+  }
+
+  function logoutAdmin() {
+    document.getElementById('painelAdmin').style.display = 'none';
+    document.getElementById('loginForm').style.display = 'block';
+    document.getElementById('adminUser').value = "";
+    document.getElementById('adminPass').value = "";
+    document.getElementById('mensagem').textContent = "";
+  }
+ // Chamar ao exibir o painel
+ 
+ function adicionarQuestao() {
+  const campo = document.getElementById("novaQuestao");
+  const mensagem = document.getElementById("mensagemQuestao");
+  const texto = campo.value.trim();
+
+  if (texto === "") {
+    mensagem.style.color = "red";
+    mensagem.textContent = "⚠️ Digite a questão antes de adicionar.";
+    return;
+  }
+
+  let questoes = JSON.parse(localStorage.getItem("questoes")) || [];
+  questoes.push(texto);
+  localStorage.setItem("questoes", JSON.stringify(questoes));
+
+  mensagem.style.color = "green";
+  mensagem.textContent = "✅ Questão adicionada com sucesso!";
+  campo.value = "";
+}
+  function voltarParaIndex() {
+    window.location.href = "index.html";
+  }
+  // Permite login com tecla Enter
+document.addEventListener("DOMContentLoaded", () => {
+  const inputs = [document.getElementById("adminUser"), document.getElementById("adminPass")];
+  
+  inputs.forEach(input => {
+    input.addEventListener("keydown", function(event) {
+      if (event.key === "Enter") {
+        loginAdmin();
+      }
+    });
+  });
+});
+ function mostrarQuestoes() {
+  const lista = document.getElementById("listaQuestoes");
+  const questoes = JSON.parse(localStorage.getItem("questoes")) || [];
+
+  lista.innerHTML = "";
+
+  if (questoes.length === 0) {
+    lista.innerHTML = "<li>Nenhuma questão cadastrada.</li>";
+    return;
+  }
+
+  questoes.forEach((q, i) => {
+    const li = document.createElement("li");
+    li.textContent = `${i + 1}. ${q}`;
+    lista.appendChild(li);
+  });
+}
+
+     </script>
+   </body>
+</html>

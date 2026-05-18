@@ -1,0 +1,11 @@
+CREATE TABLE questoes (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    ano INTEGER NOT NULL,
+    dia INTEGER CHECK(dia IN (1, 2)) NOT NULL,
+    area TEXT NOT NULL,  -- Ex: 'Linguagens', 'Matemática'
+    pergunta TEXT NOT NULL,
+    alternativas TEXT NOT NULL, -- JSON com alternativas
+    resposta_correta TEXT NOT NULL,
+    imagem TEXT,  -- caminho se a questão tiver imagem
+    fonte TEXT
+);
