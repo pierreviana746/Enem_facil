@@ -29,27 +29,43 @@
 </head>
 <body>
     <h2>Login do Estudante</h2>
-    <p>Digite seu nome de usuário:</p>
+    <p>Digite seu nome de usuario:</p>
     <input type="text" id="usuario" placeholder="Seu nome ou ID">
     <br>
     <button onclick="verificarLogin()">Entrar</button>
     <p id="mensagem" style="color: red; margin-top: 20px;"></p>
 
    <script>
-  function verificarLogin() {
-    const usuario = document.getElementById('usuario').value.trim().toLowerCase();
-    const mensagem = document.getElementById('mensagem');
-    
-    const alunos = JSON.parse(localStorage.getItem("alunos")) || [];
+  async function verificarLogin() {
+  const usuario = document.getElementById('usuario').value.trim();
+  const senha = document.getElementById('senha').value;
+  const mensagem = document.getElementById('mensagem');
 
-    if (alunos.includes(usuario)) {
-      localStorage.setItem("aluno", usuario);
+  try {
+    const resposta = await fetch("https://enem-facil.onrender.com/auth/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ usuario, senha })
+    });
+
+    const dados = await resposta.json();
+
+    if (resposta.ok) {
+      localStorage.setItem("token", dados.token);
+      localStorage.setItem("aluno", JSON.stringify(dados.aluno));
+
       window.location.href = "dashboard.html";
     } else {
-      mensagem.textContent = "❌ Usuário não encontrado. Cadastre-se primeiro.";
+      mensagem.textContent = "❌ " + dados.error;
     }
-  }
-</script>
 
+  } catch (erro) {
+    console.log(erro);
+    mensagem.textContent = "❌ Erro ao conectar com servidor.";
+  }
+}
+</script>
 </body>
 </html>
