@@ -91,7 +91,7 @@ async function cadastrar() {
 
   try {
 
-    const resposta = await fetch("http://localhost:3000/auth/cadastro", {
+    const resposta = await fetch("https://enem-facil.onrender.com/auth/cadastro", {
 
       method: "POST",
 
@@ -101,6 +101,7 @@ async function cadastrar() {
 
       body: JSON.stringify({
         nome,
+        dataNascimento,
         email,
         usuario,
         senha

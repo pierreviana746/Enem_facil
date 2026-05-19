@@ -9,7 +9,7 @@ const router = express.Router();
 // CADASTRO
 router.post("/cadastro", async (req, res) => {
   try {
-    const { nome, usuario, email, senha } = req.body;
+    const { nome, usuario, email, senha, dataNascimento } = req.body;
     const existe = await Aluno.findOne({
     $or: [{ usuario }, { email }]
 });
@@ -25,6 +25,7 @@ router.post("/cadastro", async (req, res) => {
       usuario,
       email,
       senha: senhaHash,
+      dataNascimento,
       verificado: false,
       codigoVerificacao: codigo
     });
@@ -57,7 +58,8 @@ router.post("/cadastro", async (req, res) => {
 
     if (!aluno.verificado) {
       return res.status(400).json({
-        error: "E-mail não verificado. Verifique seu e-mail antes de entrar."
+        error: "E-mail não verificado",
+          code: "EMAIL_NOT_VERIFIED"
       });
     }
 
