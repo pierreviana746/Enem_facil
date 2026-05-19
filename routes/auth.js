@@ -84,9 +84,11 @@ router.post("/cadastro", async (req, res) => {
     });
 
   } catch (err) {
-    return res.status(500).json({ error: "Erro no login" });
-  }
-});
+  console.error("ERRO LOGIN:", err);
+  return res.status(500).json({
+    error: err.message
+  });
+}
 
 router.post("/verificar", async (req, res) => {
   try {
