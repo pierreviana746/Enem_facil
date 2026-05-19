@@ -258,7 +258,7 @@ document.getElementById("nomeAluno").textContent = aluno;
 // 🔌 API
 async function carregarQuestoesAPI() {
   try {
-    const API = "http://localhost:3000";
+    const API = "https://enem-facil.onrender.com";
    
 
     const res = await fetch(`${API}/questoes`, {
@@ -329,7 +329,7 @@ function carregarQuestao() {
 
   // 📝 NOVO BLOCO DE TEXTO + IMAGEM + ENUNCIADO
   const enunciadoEl = document.getElementById("enunciado");
-  const baseURL = "http://localhost:3000";
+  const baseURL = "https://enem-facil.onrender.com";
   let html = "";
 
   if (q.textoIntro) {
