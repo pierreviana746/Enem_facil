@@ -88,8 +88,8 @@ router.post("/cadastro", async (req, res) => {
   return res.status(500).json({
     error: err.message
   });
-}
-
+ }
+});
 router.post("/verificar", async (req, res) => {
   try {
     const { email, codigo } = req.body;
