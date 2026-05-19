@@ -56,12 +56,12 @@ router.post("/cadastro", async (req, res) => {
       return res.status(400).json({ error: "Usuário não encontrado" });
     }
 
-    if (!aluno.verificado) {
-      return res.status(400).json({
-        error: "E-mail não verificado",
-          code: "EMAIL_NOT_VERIFIED"
-      });
-    }
+   // if (!aluno.verificado) {
+   //   return res.status(400).json({
+   //     error: "E-mail não verificado",
+   //       code: "EMAIL_NOT_VERIFIED"
+   //    });
+   //  }
 
     const senhaOk = await bcrypt.compare(senha, aluno.senha);
 
