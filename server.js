@@ -16,7 +16,7 @@ app.use(express.json());
 
 app.use("/auth", require("./routes/auth"));
 app.use("/questoes", require("./routes/questoes"));
-
+app.use("/progresso", require("./routes/progresso"));
 app.use(express.static(path.join(__dirname, "public")));
 
 // AQUI É O FINAL (OBRIGATÓRIO)
