@@ -263,7 +263,7 @@ if (!alunoLogado) {
 }
 
 // 📊 PROGRESSO
-const progresso = JSON.parse(localStorage.getItem(`progresso_${aluno}`)) || {
+const progresso = {
   respondidas: 0,
   acertos: 0,
   erros: 0
@@ -274,17 +274,12 @@ document.getElementById("nomeAluno").textContent = aluno;
 async function carregarProgresso() {
 
   try {
-
     const API = "https://enem-facil.onrender.com";
-
     const res = await fetch(`${API}/progresso/${aluno}`, {
-
       headers: {
         Authorization: `Bearer ${token}`
       }
-
     });
-
     // se não existir progresso ainda
     if (res.status === 404) {
       console.log("Nenhum progresso salvo ainda.");
@@ -316,8 +311,6 @@ async function carregarProgresso() {
 
     questoesOriginais = [...questoes];
     questoesFiltradas = [...questoes];
-
-    atualizarProgresso();
 
     console.log("✅ progresso carregado");
 
@@ -392,22 +385,6 @@ async function carregarQuestoesAPI() {
   acertou: false
 }));
 
-    // 🔥 sincroniza com localStorage (mantendo progresso)
-    const salvas = JSON.parse(localStorage.getItem(`questoes_${aluno}`)) || [];
-
-   questoes = questoes.map(q => {
-  const antiga = salvas.find(s => s.id === q.id);
-
-  if (antiga) {
-    return {
-      ...q,
-      respondida: antiga.respondida,
-      acertou: antiga.acertou
-    };
-  }
-
-  return q;
-});
     questoesOriginais = [...questoes];
     questoesFiltradas = [...questoes];
     
@@ -682,7 +659,7 @@ async function iniciar() {
 
   await carregarQuestoesAPI();
   await carregarProgresso();
-
+  atualizarProgresso();
   carregarQuestao();
   gerarGraficoDisciplina();
   gerarGraficoNivel();
