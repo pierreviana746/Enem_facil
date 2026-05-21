@@ -270,7 +270,107 @@ const progresso = JSON.parse(localStorage.getItem(`progresso_${aluno}`)) || {
 };
 
 document.getElementById("nomeAluno").textContent = aluno;
+// ☁️ CARREGAR PROGRESSO DO MONGO
+async function carregarProgresso() {
 
+  try {
+
+    const API = "https://enem-facil.onrender.com";
+
+    const res = await fetch(`${API}/progresso/${aluno}`, {
+
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+
+    });
+
+    // se não existir progresso ainda
+    if (res.status === 404) {
+      console.log("Nenhum progresso salvo ainda.");
+      return;
+    }
+
+    const data = await res.json();
+
+    progresso.respondidas = data.respondidas || 0;
+    progresso.acertos = data.acertos || 0;
+    progresso.erros = data.erros || 0;
+
+    // sincroniza questões respondidas
+    questoes = questoes.map(q => {
+
+      const salva = data.questoes?.find(s => s.id === q.id);
+
+      if (salva) {
+        return {
+          ...q,
+          respondida: salva.respondida,
+          acertou: salva.acertou
+        };
+      }
+
+      return q;
+
+    });
+
+    questoesOriginais = [...questoes];
+    questoesFiltradas = [...questoes];
+
+    atualizarProgresso();
+
+    console.log("✅ progresso carregado");
+
+  } catch (err) {
+
+    console.error("❌ erro ao carregar progresso", err);
+
+  }
+}
+  // ☁️ SALVAR PROGRESSO NO MONGO
+async function salvarProgresso(qAtual) {
+
+  try {
+
+    const API = "https://enem-facil.onrender.com";
+
+    const res = await fetch(`${API}/progresso/update`, {
+
+      method: "POST",
+
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`
+      },
+
+      body: JSON.stringify({
+
+        userId: aluno,
+
+        respondidas: progresso.respondidas,
+        acertos: progresso.acertos,
+        erros: progresso.erros,
+
+        questao: {
+          id: qAtual.id,
+          respondida: qAtual.respondida,
+          acertou: qAtual.acertou
+        }
+
+      })
+
+    });
+
+    const data = await res.json();
+
+    console.log("✅ progresso salvo", data);
+
+  } catch (err) {
+
+    console.error("❌ erro ao salvar progresso", err);
+
+  }
+}
 // 🔌 API
 async function carregarQuestoesAPI() {
   try {
@@ -310,12 +410,7 @@ async function carregarQuestoesAPI() {
 });
     questoesOriginais = [...questoes];
     questoesFiltradas = [...questoes];
-
-    atualizarProgresso();
-    carregarQuestao();
-    gerarGraficoDisciplina();
-    gerarGraficoNivel();
-
+    
   } catch (err) {
     console.error(err);
     document.getElementById("enunciado").textContent = "Erro ao carregar questões.";
@@ -485,10 +580,8 @@ function zerarProgresso() {
       q.respondida = false;
       q.acertou = false;
     });
-
-    localStorage.setItem(`progresso_${aluno}`, JSON.stringify(progresso));
-    localStorage.setItem(`questoes_${aluno}`, JSON.stringify(questoes));
-
+     salvarProgresso(q);
+    
     atualizarProgresso();
     carregarQuestao();
     gerarGraficoDisciplina();
@@ -585,7 +678,16 @@ function aplicarFiltros() {
 }
 
 // 🚀 INICIAR
-carregarQuestoesAPI();
+async function iniciar() {
+
+  await carregarQuestoesAPI();
+  await carregarProgresso();
+
+  carregarQuestao();
+  gerarGraficoDisciplina();
+  gerarGraficoNivel();
+}
+iniciar();
 </script>
 </body>
 </html>
