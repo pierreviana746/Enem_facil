@@ -901,6 +901,158 @@ A “língua de santo” tem sua importância para o patrimônio linguístico br
   correta: "B",
   nivel: 3,
   disciplina: "Português"
+},
+  {
+  id: 60,
+  enunciado: `O meu medo é entrar na faculdade e tirar zero eu que nunca fui bom de matemática fraco no inglês eu que nunca gostei de química geografia e português o que é que eu faço agora hein mãe não sei. [...]
+
+O meu medo é a vida piorar e eu não conseguir arranjar emprego nem de faxineiro nem de porteiro nem de ajudante de pedreiro e o pessoal dizer que o governo já fez o que pôde já pôde o que fez já deu a sua cota de participação hein mãe não sei.
+
+O meu medo é que mesmo com diploma debaixo do braço andando por aí desiludido e desempregado o policial me olhe de cara feia e eu acabe fazendo uma burrice sei lá uma besteira será que eu vou ter direito a uma cela especial hein mãe não sei.
+
+FREIRE, M. Contos negreiros. Rio de Janeiro: Record, 2005.
+Nesse texto, a reiteração dos medos e das angústias do narrador exprime`,
+  alternativas: {
+    A: { texto: "inseguranças sobre o futuro familiar." },
+    B: { texto: "dilemas resultantes de seu fracasso escolar." },
+    C: { texto: "incertezas centradas em sua condição social." },
+    D: { texto: "hesitações em relação à sua formação profissional." },
+    E: { texto: "preocupações com as políticas públicas assistenciais." }
+  },
+  correta: "C",
+  nivel: 3,
+  disciplina: "Português"
+},
+  {
+  id: 61,
+  enunciado: `Pequenino morto
+
+Tange o sino, tange, numa voz de choro,
+Numa voz de choro... tão desconsolado...
+No caixão dourado, como em berço de ouro,
+Pequenino, levam-te dormindo... Acorda!
+Olha que te levam para o mesmo lado
+De onde o sino tange numa voz de choro...
+Pequenino, acorda!
+
+Que caminho triste, e que viagem! Alas
+De ciprestes negros a gemer no vento;
+Tanta boca aberta de famintas valas
+A pedir que as fartem, a esperar que as encham...
+Pequenino, acorda! Recupera o alento,
+Foge da cobiça dessas fundas valas
+A pedir que as encham.
+
+CARVALHO, V. Poemas e canções. Rio de Janeiro:
+Saraiva, 1962 (fragmento).
+
+Nesse fragmento do poema, o sentimento de luto adquire contornos expressivos e é intensificado pela`,
+  alternativas: {
+    A: { texto: "descrição da paisagem de um cemitério." },
+    B: { texto: "recusa do eu lírico à irreversibilidade da morte." },
+    C: { texto: "sonoridade dos versos produzida pela pontuação." },
+    D: { texto: "religiosidade evocada como forma de fortalecimento." },
+    E: { texto: "impressão de sonho na construção da estrutura poética." }
+  },
+  correta: "B",
+  nivel: 3,
+  disciplina: "Português"
+},
+  {
+  id: 62,
+  enunciado: `TEXTO I
+As mariposas
+As mariposa, quando chega o frio
+Fica dando volta em volta da lâmpida pra se esquentá. [sic]
+BARBOSA, A. Reviva: Adoniran Barbosa. São Paulo: Som Livre, 2002 (fragmento).
+
+TEXTO II
+As mariposas se aproximam das lâmpadas atraídas pela luz, pois, sendo basicamente criaturas noturnas, estão adaptadas a seguir o brilho da lua, em um processo conhecido como orientação transversal. Assim, o que o sambista Adoniran Barbosa, no Texto I, descreve não é a causa, mas sim uma das consequências possíveis dessa aproximação. De fato, o calor gerado pelas lâmpadas, sobretudo as incandescentes, pode aquecer as mariposas.
+
+HERTZBERG, R. Por que as mariposas são tão atraídas por luzes fortes? National Geographic, nov. 2020 (adaptado).
+Nesse contexto, o processo de transferência de calor para as mariposas que independe da presença de fluidos é a`,
+  alternativas: {
+    A: { texto: "reflexão." },
+    B: { texto: "refração." },
+    C: { texto: "irradiação." },
+    D: { texto: "dispersão." },
+    E: { texto: "convecção." }
+  },
+  correta: "C",
+  nivel: 2,
+  disciplina: "Física"
+},
+  {
+  id: 63,
+  enunciado: `O bioma Cerrado é caracterizado por apresentar ampla e natural diversidade de espécies vegetais. Nos últimos tempos, o homem vem modificando esse cenário pela inserção de plantas exóticas nesse ambiente. Exemplo disso é o cultivo do capim-gordura, nativo do continente africano e utilizado nesse tipo de ecossistema como forma de pastagem. É importante ressaltar que essa espécie vegetal é capaz de se espalhar por grandes áreas, devido à sua agressividade e poder competitivo.
+
+CARLOS JR., L. A.; BARBOSA, N. P. U.; FERNANDES, G. W.
+O capim-gordura e as invasões no Cerrado brasileiro.
+Jornal do Biólogo, mar.-jun. 2008 (adaptado).
+
+Em longo prazo, essa ação do homem pode gerar qual consequência?`,
+  alternativas: {
+    A: { texto: "Diversificar nichos ecológicos." },
+    B: { texto: "Assorear as nascentes do bioma." },
+    C: { texto: "Dificultar a infiltração de água na terra." },
+    D: { texto: "Diminuir as espécies nativas do bioma." },
+    E: { texto: "Contribuir com a redução das queimadas." }
+  },
+  correta: "D",
+  nivel: 2,
+  disciplina: "Biologia"
+},
+  {
+  id: 64,
+  enunciado: `Os sapinhos-ponta-de-flecha constituem um grupo de espécies encontradas na América Central e do Sul. Seus venenos são obtidos por meio do consumo de algumas formigas e cupins que se alimentam de plantas que contêm esses venenos. Esses anfíbios são usados para envenenar as flechas das zarabatanas dos caçadores nativos. Quando capturados e criados em condições artificiais, ou quando nascidos em cativeiro, não são tóxicos.
+
+BADIO, B. et al. Epibatidine: Discovery and Definition as a Potent Analgesic and Nicotinic Agonist. Med. Chem. Res., n. 4, 1994 (adaptado).
+
+A perda da capacidade de se obter a toxina nos nascidos em cativeiro é causada pela`,
+  alternativas: {
+    A: { texto: "diferença de umidade entre os ambientes." },
+    B: { texto: "ausência de alimentação natural." },
+    C: { texto: "adaptação ao novo ambiente." },
+    D: { texto: "mudança de comportamento." },
+    E: { texto: "variabilidade genética." }
+  },
+  correta: "B",
+  nivel: 2,
+  disciplina: "Biologia"
+},
+  {
+  id: 65,
+  enunciado: `O monstro de gila, um lagarto encontrado em um deserto dos Estados Unidos, apresenta adaptações à falta de alimento nesse ambiente. Esse lagarto possui um hormônio que controla os níveis de açúcar em seu próprio sangue. Foi observado que esse hormônio também controla os níveis de açúcar no sangue de pessoas diabéticas.
+
+RUSSELL, C. Ozempic e outros remédios inspirados em veneno de animais. Disponível em: www.bbc.com. Acesso em: 6 dez. 2024 (adaptado).
+
+Considerando que animais de um mesmo grupo taxonômico podem apresentar características adaptativas semelhantes em ambientes similares, onde seria mais provável encontrar lagartos com essas características no território brasileiro?`,
+  alternativas: {
+    A: { texto: "Cerrado" },
+    B: { texto: "Pampas" },
+    C: { texto: "Caatinga" },
+    D: { texto: "Restinga" },
+    E: { texto: "Pantanal" }
+  },
+  correta: "C",
+  nivel: 2,
+  disciplina: "Biologia"
+},
+  {
+  id: 66,
+  enunciado: `O sashimi (filé de peixe cru) de baiacu é uma iguaria muito apreciada no Japão. Entretanto, sua ingestão pode causar a morte por parada respiratória, pois esse peixe contém uma potente neurotoxina termoestável, a tetrodotoxina, que é produzida e armazenada nas gônadas e vísceras.
+
+Que ação poderia evitar essa intoxicação?`,
+  alternativas: {
+    A: { texto: "Criar os peixes em cativeiro." },
+    B: { texto: "Realizar a pesca com redes." },
+    C: { texto: "Consumir peixes cozidos ou fritos." },
+    D: { texto: "Preparar o peixe em condições adequadas de higiene." },
+    E: { texto: "Manusear o peixe sem provocar o rompimento dos órgãos internos." }
+  },
+  correta: "E",
+  nivel: 2,
+  disciplina: "Biologia"
 }
   
 ];
