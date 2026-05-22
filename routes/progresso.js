@@ -21,7 +21,9 @@ async function getOrCreateUser(userId) {
 router.get("/:userId", async (req, res) => {
   try {
     const { userId } = req.params;
-
+    if (!userId || userId === "undefined") {
+      return res.status(400).json({ error: "userId inválido" });
+    }
     let user = await getOrCreateUser(userId);
 
     res.json(user);
@@ -37,7 +39,9 @@ router.get("/:userId", async (req, res) => {
 router.post("/update", async (req, res) => {
   try {
     const { userId, respondidas, acertos, erros, questao } = req.body;
-
+    if (!userId || userId === "undefined") {
+      return res.status(400).json({ error: "userId inválido" });
+    }
     let user = await getOrCreateUser(userId);
 
     // atualiza estatísticas gerais
@@ -69,8 +73,11 @@ router.post("/update", async (req, res) => {
 router.post("/reset", async (req, res) => {
   try {
     const { userId } = req.body;
+   if (!userId || userId === "undefined") {
+      return res.status(400).json({ error: "userId inválido" });
+    }
 
-   let user = await getOrCreateUser(userId);
+    let user = await getOrCreateUser(userId);
 
      user.respondidas = 0;
      user.acertos = 0;
