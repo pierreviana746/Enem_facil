@@ -305,7 +305,7 @@ async function carregarProgresso() {
     questoes = questoes.map(q => {
 
      const lista = data.questoes || [];
-     const salva = lista.find(s => s.id === q.id);
+     const salva = lista.find(s => s.id === q._id);
 
       if (salva) {
         return {
