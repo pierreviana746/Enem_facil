@@ -780,7 +780,7 @@ module.exports = [
 },
 
 {
-  id: 60,
+  id: 53,
   textoIntro: `A produção de vacinas exige uma sequência de procedimentos,
 além do cumprimento estrito de verificações de segurança.`,
   imagem: "/imagens/celula.png",
@@ -798,7 +798,7 @@ além do cumprimento estrito de verificações de segurança.`,
 },
 
 {
-  id: 61,
+  id: 54,
   enunciado: `QUESTÃO 95.(caderno 5 - Amarelo Enem/2024)
 Problemas no DNA são responsáveis por cerca de metade dos casos de perda de audição na infância.`,
   alternativas: {
@@ -814,7 +814,7 @@ Problemas no DNA são responsáveis por cerca de metade dos casos de perda de au
 },
 
 {
-  id: 62,
+  id: 55,
   textoIntro: `A Figura 1 apresenta o esquema de um tubo de imagem.`,
   imagem: "/imagens/captura(1).png",
   enunciado: "Nessa situação, qual ponto da tela será atingido pelo feixe de elétrons?",
@@ -831,7 +831,7 @@ Problemas no DNA são responsáveis por cerca de metade dos casos de perda de au
 },
 
 {
-  id: 63,
+  id: 56,
   textoIntro: `A figura apresenta a herança genética de uma característica.`,
   imagem: "/imagens/questao102en.png",
   enunciado: "Qual alternativa representa a proporção fenotípica da prole resultante do cruzamento entre indivíduos da primeira geração?",
@@ -845,5 +845,59 @@ Problemas no DNA são responsáveis por cerca de metade dos casos de perda de au
   correta: "B",
   nivel: 2,
   disciplina: "Física"
+},
+
+{
+  id: 57,
+  enunciado: `Com 20 anos de experiência no futebol de alto rendimento, Marina, ex-jogadora da seleção brasileira de futebol, salienta que, por trás do espetáculo apresentado nas mídias, com mensagens de motivação e superação, o esporte não é tão inclusivo assim. “É esta análise que devemos fazer: aqueles atletas que estão ali estão trazendo uma alta performance a partir dos seus limites”, explica. Para a profissional, é preciso analisar com cautela “a ideia romântica que a mídia passa para os telespectadores”. A realidade é muito mais dura do que as imagens espetaculosas que principalmente a televisão busca transmitir para a audiência. “Por trás existe um ser humano, a gente não pode nunca esquecer isso. Aquela pessoa treinou insistentemente para estar ali, durante meses, semanas e temporadas. Duas vezes ao dia, de duas a quatro horas”, pondera Marina. Atualmente, as crianças e os jovens vislumbram o sucesso profissional e a boa-vida financeira de poucos atletas que se destacam e estampam os meios de comunicação. Tudo parece ser muito mais fácil do que realmente é quando apenas as conquistas são mostradas.
+
+ROSOLEN, N. Disponível em: www.uninter.com. Acesso em: 10 maio 2024 (adaptado).
+
+Nesse texto, a visão crítica de uma ex-atleta de futebol revela que`,
+  alternativas: {
+    A: { texto: "os meios de comunicação invisibilizam as dificuldades presentes no esporte." },
+    B: { texto: "o treinamento atlético de alto nível é desestimulante para os indivíduos." },
+    C: { texto: "o trabalho contínuo é desvalorizado no contexto esportivo profissional." },
+    D: { texto: "as ações de incentivo financeiro a jovens atletas são precárias." },
+    E: { texto: "as publicações da mídia esportiva rotulam atletas iniciantes." }
+  },
+  correta: "A",
+  nivel: 2,
+  disciplina: "Português"
+},
+  {
+  id: 58,
+  enunciado: `No predomínio das mulheres pretas brasileiras nos Jogos Olímpicos de 2024, uma coisa chamou a atenção no pódio: elas valorizam a parte psicológica. As duas medalhistas de ouro, a judoca Beatriz Souza e a ginasta Rebeca Andrade, ressaltam, em várias entrevistas, a importância da saúde mental. Em uma dessas entrevistas, Rebeca sinaliza: “Acho que não é só sobre vencer a Simone, é sobre vencer a mim mesma. A minha briga está na minha cabeça, não está com outras pessoas. Para conseguir fazer as minhas apresentações, preciso controlar a minha cabeça, o meu corpo, e essa é a briga”. Na mesma linha, a skatista Rayssa Leal exalta a necessidade da terapia, e a Seleção Brasileira de Futebol de Mulheres tem o suporte psicológico como reforço no treinamento.
+
+Disponível em: https://iclnoticias.com.br. Acesso em: 18 set. 2024 (adaptado).
+
+Nesse texto, as atletas brasileiras defendem o(a)`,
+  alternativas: {
+    A: { texto: "investimento na modernização de equipamentos." },
+    B: { texto: "subordinação do treinamento físico ao mental." },
+    C: { texto: "estímulo à competição entre adversárias." },
+    D: { texto: "aprimoramento da expressão corporal." },
+    E: { texto: "importância da saúde emocional." }
+  },
+  correta: "E",
+  nivel: 1,
+  disciplina: "Português"
+},
+Disponível em: https://periodicos.ufba.br. Acesso em: 21 jan. 2024 (adaptado).
+
+A “língua de santo” tem sua importância para o patrimônio linguístico brasileiro por`,
+  alternativas: {
+    A: { texto: "apresentar uma carga semântica mítica." },
+    B: { texto: "conservar elementos dos falares dos escravizados." },
+    C: { texto: "resgatar expressões portuguesas do período colonial." },
+    D: { texto: "decodificar o ritual religioso dos nossos antepassados." },
+    E: { texto: "favorecer a compreensão do léxico africano contemporâneo." }
+  },
+  correta: "B",
+  nivel: 3,
+  disciplina: "Português"
 }
+
+
+  
 ];
