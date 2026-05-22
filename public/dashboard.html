@@ -319,6 +319,9 @@ async function carregarProgresso() {
     console.error("❌ erro ao carregar progresso", err);
 
   }
+  atualizarProgresso();
+  gerarGraficoDisciplina();
+  gerarGraficoNivel();
 }
   // ☁️ SALVAR PROGRESSO NO MONGO
 async function salvarProgresso(qAtual) {
@@ -523,9 +526,6 @@ function enviarResposta() {
     feedback.className = "feedback errada";
   }
 
-  localStorage.setItem(`progresso_${aluno}`, JSON.stringify(progresso));
-  localStorage.setItem(`questoes_${aluno}`, JSON.stringify(questoes));
-
   atualizarProgresso();
   gerarGraficoDisciplina();
   gerarGraficoNivel();
@@ -557,7 +557,6 @@ function zerarProgresso() {
       q.respondida = false;
       q.acertou = false;
     });
-     salvarProgresso(q);
     
     atualizarProgresso();
     carregarQuestao();
