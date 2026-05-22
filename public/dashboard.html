@@ -256,7 +256,8 @@ let chartNivel;
 
 // 🔐 LOGIN
 const alunoLogado = JSON.parse(localStorage.getItem("alunoLogado"));
-const aluno = JSON.parse(localStorage.getItem("alunoLogado"))?.nome;
+const aluno = alunoLogado?.nome;
+const alunoId = alunoLogado?._id;
 
 if (!alunoLogado) {
   window.location.href = "index.html";
@@ -275,7 +276,7 @@ async function carregarProgresso() {
 
   try {
     const API = "https://enem-facil.onrender.com";
-    const res = await fetch(`${API}/progresso/${aluno}`, {
+    const res = await fetch(`${API}/progresso/${alunoId}`, {
       headers: {
         Authorization: `Bearer ${token}`
       }
@@ -341,7 +342,7 @@ async function salvarProgresso(qAtual) {
 
       body: JSON.stringify({
 
-        userId: aluno,
+        userId: alunoId,
 
         respondidas: progresso.respondidas,
         acertos: progresso.acertos,
@@ -495,7 +496,7 @@ keys.forEach((k, i) => {
 }
 
 // 📩 RESPOSTA
-function enviarResposta() {
+async function enviarResposta() {
   const selecionada = document.querySelector('input[name="resposta"]:checked');
   const feedback = document.getElementById("feedback");
 
@@ -525,7 +526,7 @@ function enviarResposta() {
     feedback.textContent = `✖ Errado! Correta: ${q.correta}`;
     feedback.className = "feedback errada";
   }
-
+ await salvarProgresso(q);
   atualizarProgresso();
   gerarGraficoDisciplina();
   gerarGraficoNivel();
@@ -547,8 +548,22 @@ function voltarQuestao() {
 }
 
 // 🔄 ZERAR
-function zerarProgresso() {
-  if (confirm("Zerar progresso?")) {
+async function zerarProgresso() {
+  if (!confirm("Zerar progresso?")) return;
+
+  const API = "https://enem-facil.onrender.com";
+
+  try {
+    await fetch(`${API}/progresso/reset`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify({ userId: alunoId })
+    });
+
+    // reset local também
     progresso.respondidas = 0;
     progresso.acertos = 0;
     progresso.erros = 0;
@@ -557,11 +572,14 @@ function zerarProgresso() {
       q.respondida = false;
       q.acertou = false;
     });
-    
+
     atualizarProgresso();
     carregarQuestao();
     gerarGraficoDisciplina();
     gerarGraficoNivel();
+
+  } catch (err) {
+    console.error("Erro ao resetar progresso:", err);
   }
 }
 
