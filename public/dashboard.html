@@ -296,20 +296,21 @@ async function carregarProgresso() {
     // sincroniza questões respondidas
     questoes = questoes.map(q => {
 
-      const salva = data.questoes?.find(s => s.id === q.id);
+     const lista = data.questoes || [];
+     const salva = lista.find(s => s.id === q.id);
 
       if (salva) {
         return {
           ...q,
-          respondida: salva.respondida,
-          acertou: salva.acertou
+          respondida: !!salva.respondida,
+          acertou: !!salva.acertou
         };
       }
 
       return q;
 
     });
-
+    console.log("QUESTÕES CARREGADAS:", questoes);
     questoesOriginais = [...questoes];
     questoesFiltradas = [...questoes];
 
