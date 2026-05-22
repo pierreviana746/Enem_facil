@@ -255,19 +255,21 @@ let chartNivel;
 }
 
 // 🔐 LOGIN
-  const alunoLogado = JSON.parse(localStorage.getItem("alunoLogado"));
+const alunoLogado = JSON.parse(localStorage.getItem("alunoLogado"));
 
-   console.log("ALUNO LOGADO:", alunoLogado);
+console.log("ALUNO LOGADO:", alunoLogado);
 
-    if (!alunoLogado || !alunoLogado.id) {
-      alert("Erro: usuário não identificado. Faça login novamente.");
-     localStorage.clear();
-     window.location.href = "index.html";
+const alunoId = alunoLogado?._id;
+
+if (!alunoLogado || !alunoId) {
+  alert("Erro: usuário não identificado. Faça login novamente.");
+  localStorage.clear();
+  window.location.href = "index.html";
 }
 
-   const alunoId = alunoLogado.id;
-
 console.log("ALUNO ID:", alunoId);
+
+const aluno = alunoLogado.nome;
 
 // 📊 PROGRESSO
 const progresso = {
