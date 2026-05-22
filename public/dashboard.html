@@ -321,17 +321,19 @@ async function carregarProgresso() {
     console.log("QUESTÕES CARREGADAS:", questoes);
     questoesOriginais = [...questoes];
     questoesFiltradas = [...questoes];
-
+    
     console.log("✅ progresso carregado");
 
-  } catch (err) {
+    carregarQuestao();
+    gerarGraficoDisciplina();
+    gerarGraficoNivel();
+    
+   } catch (err) {
 
     console.error("❌ erro ao carregar progresso", err);
 
   }
   atualizarProgresso();
-  gerarGraficoDisciplina();
-  gerarGraficoNivel();
 }
   // ☁️ SALVAR PROGRESSO NO MONGO
 async function salvarProgresso(qAtual) {
