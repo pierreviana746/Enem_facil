@@ -258,7 +258,8 @@ let chartNivel;
 const alunoLogado = JSON.parse(localStorage.getItem("alunoLogado"));
 const aluno = alunoLogado?.nome;
 const alunoId = alunoLogado?.id;
-
+console.log("ALUNO LOGADO:", alunoLogado);
+console.log("ALUNO ID:", alunoId);
 if (!alunoLogado) {
   window.location.href = "index.html";
 }
