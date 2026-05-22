@@ -76,12 +76,13 @@ router.post("/cadastro", async (req, res) => {
     );
 
     return res.json({
-      token,
-      aluno: {
-        id: aluno._id,
-        nome: aluno.nome
-      }
-    });
+  token,
+  aluno: {
+    _id: aluno._id,
+    nome: aluno.nome,
+    email: aluno.email
+  }
+});
 
   } catch (err) {
   console.error("ERRO LOGIN:", err);
