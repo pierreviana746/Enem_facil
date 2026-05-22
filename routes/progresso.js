@@ -2,23 +2,27 @@ const express = require("express");
 const router = express.Router();
 const Progresso = require("../models/Progresso");
 
+async function getOrCreateUser(userId) {
+  let user = await Progresso.findOne({ userId });
+
+  if (!user) {
+    user = await Progresso.create({
+      userId,
+      respondidas: 0,
+      acertos: 0,
+      erros: 0,
+      questoes: []
+    });
+  }
+
+  return user;
+}
 // 🔎 GET: buscar progresso do usuário
 router.get("/:userId", async (req, res) => {
   try {
     const { userId } = req.params;
 
-    let user = await Progresso.findOne({ userId });
-
-    // se não existir, cria automaticamente
-    if (!user) {
-      user = await Progresso.create({
-        userId,
-        respondidas: 0,
-        acertos: 0,
-        erros: 0,
-        questoes: []
-      });
-    }
+    let user = await getOrCreateUser(userId);
 
     res.json(user);
 
@@ -34,17 +38,7 @@ router.post("/update", async (req, res) => {
   try {
     const { userId, respondidas, acertos, erros, questao } = req.body;
 
-    let user = await Progresso.findOne({ userId });
-
-    if (!user) {
-      user = await Progresso.create({
-        userId,
-        respondidas: 0,
-        acertos: 0,
-        erros: 0,
-        questoes: []
-      });
-    }
+    let user = await getOrCreateUser(userId);
 
     // atualiza estatísticas gerais
     user.respondidas = respondidas;
@@ -72,5 +66,27 @@ router.post("/update", async (req, res) => {
     res.status(500).json({ error: "Erro ao atualizar progresso" });
   }
 });
+router.post("/reset", async (req, res) => {
+  try {
+    const { userId } = req.body;
 
+   let user = await getOrCreateUser(userId);
+
+     user.respondidas = 0;
+     user.acertos = 0;
+     user.erros = 0;
+     user.questoes = [];
+
+     await user.save();
+
+    res.json({
+      message: "Progresso resetado com sucesso",
+      progresso: user
+    });
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Erro ao resetar progresso" });
+  }
+});
 module.exports = router;
