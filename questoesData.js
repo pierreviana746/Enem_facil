@@ -870,7 +870,6 @@ Nesse texto, a visão crítica de uma ex-atleta de futebol revela que`,
   enunciado: `No predomínio das mulheres pretas brasileiras nos Jogos Olímpicos de 2024, uma coisa chamou a atenção no pódio: elas valorizam a parte psicológica. As duas medalhistas de ouro, a judoca Beatriz Souza e a ginasta Rebeca Andrade, ressaltam, em várias entrevistas, a importância da saúde mental. Em uma dessas entrevistas, Rebeca sinaliza: “Acho que não é só sobre vencer a Simone, é sobre vencer a mim mesma. A minha briga está na minha cabeça, não está com outras pessoas. Para conseguir fazer as minhas apresentações, preciso controlar a minha cabeça, o meu corpo, e essa é a briga”. Na mesma linha, a skatista Rayssa Leal exalta a necessidade da terapia, e a Seleção Brasileira de Futebol de Mulheres tem o suporte psicológico como reforço no treinamento.
 
 Disponível em: https://iclnoticias.com.br. Acesso em: 18 set. 2024 (adaptado).
-
 Nesse texto, as atletas brasileiras defendem o(a)`,
   alternativas: {
     A: { texto: "investimento na modernização de equipamentos." },
@@ -883,6 +882,12 @@ Nesse texto, as atletas brasileiras defendem o(a)`,
   nivel: 1,
   disciplina: "Português"
 },
+{
+  id: 59,
+  enunciado: `A característica fundamental no aprendizado das práticas rituais nos candomblés é o processo iniciático e participante. Durante o período de reclusão em terreiros ou roças, o iniciado passa por uma série de ritos esotéricos (banhos rituais, raspagem da cabeça etc.), ao mesmo tempo em que começa a adquirir um complexo código de símbolos materiais (substâncias, folhas, frutos, raízes etc.) e de gestos associados a um repertório linguístico específico das cerimônias que se desenrolam nos contextos sagrados em geral e em cada terreiro em particular.
+
+Esse repertório linguístico, genericamente chamado de “língua de santo” na Bahia, compreende uma terminologia religiosa operacional, de caráter mágico-semântico e de aparente forma portuguesa, mas que repousa sobre sistemas lexicais de diferentes línguas africanas que provavelmente foram faladas no Brasil escravocrata, vindo a constituir uma língua ritual, que se acredita pertencer à nação do vodum, do orixá ou do inquice, e não a determinada nação africana política atual.
+
 Disponível em: https://periodicos.ufba.br. Acesso em: 21 jan. 2024 (adaptado).
 
 A “língua de santo” tem sua importância para o patrimônio linguístico brasileiro por`,
@@ -897,7 +902,5 @@ A “língua de santo” tem sua importância para o patrimônio linguístico br
   nivel: 3,
   disciplina: "Português"
 }
-
-
   
 ];
