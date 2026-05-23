@@ -800,7 +800,14 @@ além do cumprimento estrito de verificações de segurança.`,
 {
   id: 54,
   enunciado: `QUESTÃO 95.(caderno 5 - Amarelo Enem/2024)
-Problemas no DNA são responsáveis por cerca de metade dos casos de perda de audição na infância.`,
+Problemas no DNA são responsáveis por cerca de
+metade dos casos de perda de audição na infância.
+Um estudo com camundongos mostrou que a injeção de
+um vírus, geneticamente modificado, no embrião desses
+animais pode corrigir o problema e restaurar parte da audição.
+Disponível em: www.bbc.com. Acesso em: 11 jul. 2015 (adaptado).
+De acordo com o texto, qual técnica permite a correção
+parcial do problema?`,
   alternativas: {
     A: { texto: "Terapia gênica" },
     B: { texto: "Marcação molecular" },
