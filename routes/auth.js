@@ -31,11 +31,11 @@ router.post("/cadastro", async (req, res) => {
     });
 
     await novoAluno.save();
-    try {
-    await enviarCodigo(email, codigo);
-   } catch (err) {
-     console.log("Erro ao enviar email:", err);
- }
+ //   try {
+ //   await enviarCodigo(email, codigo);
+ //  } catch (err) {
+ //    console.log("Erro ao enviar email:", err);
+ // }
 
    res.json({
       mensagem: "Aluno cadastrado com sucesso"
