@@ -112,26 +112,28 @@ async function cadastrar() {
 
     if (resposta.ok) {
 
-      mensagem.style.color = "green";
-      mensagem.textContent = "✅ Cadastro realizado com sucesso!";
+  mensagem.style.color = "green";
 
-      // limpar campos
-      document.getElementById('nome').value = "";
-      document.getElementById('dataNascimento').value = "";
-      document.getElementById('email').value = "";
-      document.getElementById('usuario').value = "";
-      document.getElementById('senha').value = "";
+  mensagem.textContent =
+    dados.mensagem || "✅ Cadastro realizado com sucesso!";
 
-      // redirecionar para login
-      setTimeout(() => {
-        window.location.href = "index.html";
-      }, 4000);
+  document.getElementById('nome').value = "";
+  document.getElementById('dataNascimento').value = "";
+  document.getElementById('email').value = "";
+  document.getElementById('usuario').value = "";
+  document.getElementById('senha').value = "";
 
-    } else {
+  setTimeout(() => {
+    window.location.href = "index.html";
+  }, 4000);
 
-      mensagem.style.color = "orange";
-      mensagem.textContent = dados.error;
-    }
+} else {
+
+  mensagem.style.color = "orange";
+
+  mensagem.textContent =
+    dados.error || "Erro ao realizar cadastro.";
+}
 
   } catch (erro) {
 
