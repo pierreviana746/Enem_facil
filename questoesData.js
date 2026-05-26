@@ -849,7 +849,7 @@ parcial do problema?`,
     D: { imagem: "/imagens/questao102d.png" },
     E: { imagem: "/imagens/questao102e.png" }
   },
-  correta: "B",
+  correta: "E",
   nivel: 2,
   disciplina: "Física"
 },
